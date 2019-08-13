@@ -55,18 +55,28 @@ def main():
 
 	#for key in file_sorted_dict:
 	#	print(key, file_sorted_dict[key])
+	pause_check = 1
 	for file in file_sorted_dict:
+		if pause_check == 150:
+			input("Paused due to 150 files reached, press Enter to continue...")
+			pause_check = 0
 		os.rename(file, file_sorted_dict[file])
 		print(f"{file} has been renamed to {file_sorted_dict[file]}")
+		pause_check += 1
 	print("===================================================================================")
 	print("===================================================================================")
 
 
 	print("Would you like to undo? y/n")
 	x = input()
+	pause_check = 1
 	if x == "y":
 		for file in file_sorted_dict:
+			if pause_check == 150:
+				input("Paused due to 150 files reached, press Enter to continue...")
+				pause_check = 0
 			os.rename(file_sorted_dict[file], file)
+			pause_check += 1
 		input("All changes reverted.\nPress any key to exit.")
 	else:
 		document = Document()
