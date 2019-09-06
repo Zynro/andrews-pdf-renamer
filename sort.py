@@ -60,7 +60,7 @@ def main():
         for file in file_sorted_dict:
             if pause_check == 150:
                 input("Paused due to 150 files reached, press Enter to continue...")
-                pause_check = 0
+                pause_check = 1
             os.rename(file, file_sorted_dict[file])
             print(f"{file} has been renamed to {file_sorted_dict[file]}")
             pause_check += 1
@@ -79,7 +79,7 @@ def main():
         for file in file_sorted_dict:
             if pause_check == 150:
                 input("Paused due to 150 files reached, press Enter to continue...")
-                pause_check = 0
+                pause_check = 1
             os.rename(file_sorted_dict[file], file)
             pause_check += 1
         input("All changes reverted.\nPress any key to exit.")
