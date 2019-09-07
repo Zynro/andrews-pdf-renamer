@@ -13,7 +13,7 @@ def main():
     file_list = []
     try:
         for (dirpath, dirnames, filenames) in walk(os.getcwd()):
-            file_list = filenames
+            file_list = [filenames.strip() for filenames in filenames]
             break
 
         file_dict = {}
@@ -21,8 +21,10 @@ def main():
         for file in file_list:
             if ".pdf" not in file:
                 continue
-            ind = file.split(" ")
-            file_dict[file] = ind[-1]
+            file_stripped = file.replace(".pdf", "").strip()
+            ind = file_stripped.split(" ")
+            print(ind[-1])
+            file_dict[file] = ind[-1] + '.pdf'
         if not file_dict:
             input('No PDF files found to rename, press Enter to exit...')
             return
