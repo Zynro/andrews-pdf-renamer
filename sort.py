@@ -33,12 +33,14 @@ def main():
             if x == "n":
                 print("Press Enter to exit...")
                 return
-            start_index = input("Please enter an index to start at, enter nothing for default:\n")
-            try:
-                start_index = int(start_index)
-            except Exception:
-                print("Has to be a number.")
-                return
+            start_index = input("Please enter an index to start at, enter 0 for default:\n")
+            if start_index:
+                try:
+                    start_index = int(start_index)
+                except Exception:
+                    print("Has to be a number or nothing, exiting.")
+                    input()
+                    return
     except Exception as e:
         traceback.print_exc()
         input("Press Enter to exit...")
@@ -51,7 +53,7 @@ def main():
         input("Press Enter to exit...")
         return
     if not start_index or start_index == 0:
-        start_index = 0
+        start_index = 1
     try:
         file_sorted_dict = {}
         for x in range(start_index, len(file_sorted_list)+start_index):
