@@ -23,7 +23,6 @@ def main():
                 continue
             file_stripped = file.replace(".pdf", "").strip()
             ind = file_stripped.split(" ")
-            print(ind[-1])
             file_dict[file] = ind[-1] + '.pdf'
         if not file_dict:
             input('No PDF files found to rename, press Enter to exit...')
@@ -33,6 +32,12 @@ def main():
             x = input()
             if x == "n":
                 print("Press Enter to exit...")
+                return
+            start_index = input("Please enter an index to start at, enter nothing for default:\n")
+            try:
+                start_index = int(start_index)
+            except Exception:
+                print("Has to be a number.")
                 return
     except Exception as e:
         traceback.print_exc()
@@ -45,23 +50,25 @@ def main():
         traceback.print_exc()
         input("Press Enter to exit...")
         return
+    if not start_index or start_index == 0:
+        start_index = 0
     try:
         file_sorted_dict = {}
-        for x in range(len(file_sorted_list)):
-            if len(str(x+1)) == 1:
-                value = f"00{x+1}"
-            elif len(str(x+1)) == 2:
-                value = f"0{x+1}"
+        for x in range(start_index, len(file_sorted_list)+start_index):
+            if len(str(x)) == 1:
+                value = f"00{x}"
+            elif len(str(x)) == 2:
+                value = f"0{x}"
             else:
-                value = x+1
-            file_name = file_sorted_list[x].split(" ")
+                value = x
+            file_name = file_sorted_list[x - start_index].split(" ")
             for y in file_name[0]:
                 if not y.isdigit():
                     break
                 del file_name[0]
                 break
             file_name = " ".join(file_name)
-            file_sorted_dict[file_sorted_list[x]] = f"{value} {file_name}"
+            file_sorted_dict[file_sorted_list[x - start_index]] = f"{value} {file_name}"
     except Exception as e:
         traceback.print_exc()
         input("Press Enter to exit...")
